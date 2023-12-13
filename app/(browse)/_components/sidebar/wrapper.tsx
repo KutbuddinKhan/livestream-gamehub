@@ -2,6 +2,10 @@
 
 import { useSidebar } from "@/store/use-sidebar";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import { ToggleSkelton } from "./toggle";
+import { RecommendedSkelton } from "./recommended";
+import { useIsClient } from "usehooks-ts";
 
 interface WrapperProps {
     children: React.ReactNode;
@@ -11,7 +15,21 @@ export const Wrapper = ({
     children,
 }: WrapperProps) => {
 
+    const isClient = useIsClient()
     const { collapsed } = useSidebar((state) => state)
+
+    // useEffect(() => {
+    //     setIsClient(true)
+    // }, [])
+
+    if (!isClient) {
+        return (
+            <aside className="fixed left-0 flex flex-col w-[70px] lg:w-60 h-full bg-background border-r border-[#2b2E35] z-50">
+                <ToggleSkelton />
+                <RecommendedSkelton />
+            </aside>
+        )
+    }
 
     return (
         <aside
@@ -23,5 +41,4 @@ export const Wrapper = ({
             {children}
         </aside>
     )
-
 }

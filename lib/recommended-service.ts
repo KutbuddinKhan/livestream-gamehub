@@ -3,7 +3,7 @@ import { getSelf } from "@/lib/auth-service"
 
 export const getRecommended = async () => {
 
-    // await new Promise (resolve => setTimeout(resolve, 1500))
+    // await new Promise (resolve => setTimeout(resolve, 2000))
 
     const users = await db.user.findMany({
         orderBy: {
